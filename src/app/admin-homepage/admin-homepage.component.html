@@ -1,0 +1,38 @@
+<div
+  class="container"
+  style="
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  "
+>
+  <jw-modal id="admin-page-errorbox">
+    <h1>{{ displayTitle }}</h1>
+    <p>{{ displayMsg }}</p>
+    <button (click)="hidePopup()">Close</button>
+  </jw-modal>
+  <h3>Welcome to the admin board !</h3>  
+  <h4>Events list</h4>
+  <table class="table">
+    <thead class="thead-light">
+      <th scope="col"> Event Name</th>
+      <th scope="col"> Remark</th>
+      <th scope="col"> Start Time</th>
+      <th scope="col"> Reoccurance</th>
+    </thead>
+    <tbody>
+    <tr
+      *ngFor="
+        let event of eventList | slice: pageSize | slice: 0:itemsPerPage" >
+      <td>{{ event.eventName }}</td>
+      <td>{{ event.remarks }}</td>
+      <td>{{ getDate(event.startTime) | date: "yyyy-LLL-dd" }}</td>
+      <td>{{ event.reOccurance.numberOfOccurance }}</td>
+    </tr>
+  </tbody>
+  </table>
+ 
+  <ngb-pagination [collectionSize]="eventList.length" #numPages [pageSize]="itemsPerPage" [(page)]="currentPage" (pageChange)="onPageChange(currentPage)"></ngb-pagination>
+
+  <hr />
+  <h4>Task scheduled</h4>
+  <app-tasks></app-tasks>
+</div>

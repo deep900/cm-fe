@@ -1,0 +1,43 @@
+<div class="modal fade" id="editTask" tabindex="-1" aria-labelledby="editTasl" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">
+            Edit Task
+          </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="card card-body">
+            <div class="input-group mb-2">
+              <div class="input-group-prepend">
+                <div class="input-group-text text-info">Comment</div>
+              </div>
+              <input type="text" class="form-control" formControlName="comment">               
+            </div>
+
+            <div class="input-group mb-2">
+              <div class="input-group-prepend">
+                <div class="input-group-text text-info">Present State</div>
+              </div>
+              <select class="form-control" formControlName="presentState">                
+                <option>scheduled</option> 
+                <option>scheduledAndAssigned</option> 
+                <option>inprogress</option> 
+                <option>completed</option>
+                <option>onhold</option>
+                <option>cancelled</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Ok
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,39 @@
+<div
+  class="container"
+  style="
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  "
+>
+  <table class="table">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">Task Name</th>
+        <th scope="col">Event</th>
+        <th scope="col">Start Time</th>
+        <th scope="col">Assignee</th>
+        <th scope="col">Status</th>
+        <th scope="col">Edit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let task of taskList | slice: pageSize | slice: 0:itemsPerPage"
+      >
+        <td>{{ task.taskName }}</td>
+        <td>{{ task.comments[0] }}</td>
+        <td>{{ task.startTime | date: "yyyy-LLL-dd" }}</td>
+        <td>{{ task.asignee }}</td>
+        <td>{{ task.presentState | titlecase }}</td>
+        <td><a data-toggle="modal" href="#editTask">Edit </a></td>
+      </tr>
+    </tbody>
+  </table>  
+  <ngb-pagination
+    [collectionSize]="taskList.length"
+    #numPages
+    [pageSize]="itemsPerPage"
+    [(page)]="currentPage"
+    (pageChange)="onPageChange(currentPage)"
+  ></ngb-pagination>
+  <app-edit-task></app-edit-task>
+</div>

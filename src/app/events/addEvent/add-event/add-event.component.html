@@ -1,0 +1,138 @@
+<div class="container mt-3 ml-1" style="
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  ">
+  <h6>Add a new event</h6>
+  <form class="form-inline" [formGroup]="addEventForm">
+    <div class="form-row align-items-center">
+      <div class="col-8">
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text">Event Name</div>
+          </div>
+          <input type="text" class="form-control" formControlName="eventName" placeholder="Birthday of Ben" [ngClass]="{
+              'is-invalid':
+                addEventForm.get('eventName').touched &&
+                addEventForm.get('eventName').invalid
+            }" />
+          <div *ngIf="
+              addEventForm.get('eventName').touched &&
+              addEventForm.get('eventName').invalid
+            " class="invalid-feedback">
+            <div *ngIf="addEventForm.get('eventName').errors.required" class="text-danger">
+              Event name is required
+            </div>
+            <div *ngIf="addEventForm.get('eventName').errors.minlength" class="text-danger">
+              Minimum 3 characters required
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-8">
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text">Event Type</div>
+          </div>
+          <select class="form-control" formControlName="eventType" #mySelect
+            (change)="onOptionsSelected(mySelect.value)">>
+            <option *ngFor="let obj of eventTypeList" [value]="obj">{{
+              obj
+            }}</option>
+          </select>
+        </div>
+        <div class="text-danger" *ngIf="addEventForm.get('eventType').touched && addEventForm.get('eventType').invalid">
+          Event type is required.
+        </div>
+      </div>
+
+      <div class="col-8">
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text">Start Date</div>
+          </div>
+          <input placeholder="YYYY-MM-DD" class="form-control" maxLength="10" formControlName="startTime" name="dp"
+            [minDate]="minDate" ngbDatepicker #d="ngbDatepicker" data-toggle="tooltip" data-placement="bottom"
+            title="The start date should be greater than the current date."
+            [ngClass]="{'is-invalid':addEventForm.get('startTime').touched && addEventForm.get('startTime').invalid}" />
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <label (click)="d.toggle()">[ ]</label>
+            </div>
+          </div>
+        </div>
+        <div class="text-danger" *ngIf="addEventForm.get('startTime').touched && addEventForm.get('startTime').invalid">
+          Start time is required.
+        </div>
+      </div>
+
+      <div class="col-8" *ngIf="canDisplayEndDate()">
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text">End Date</div>
+          </div>
+          <input placeholder="YYYY-MM-DD" class="form-control" maxLength="10" formControlName="endTime" name="dp"
+            ngbDatepicker #d="ngbDatepicker" />
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <label (click)="d.toggle()">[ ]</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-8 mb-3">
+        <a data-toggle="modal" href="#exampleModal">
+          ReOccurance
+        </a>
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                  Event ReOccurance
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="card card-body">
+                  <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text text-info">Frequency</div>
+                    </div>
+                    <select class="form-control" formControlName="frequencyType">
+                      <option selected="{{ selectedReoccurance }}" *ngFor="let obj of frequencyTypeList" [value]="obj">
+                        {{ obj }}</option>
+                    </select>
+                  </div>
+
+                  <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text text-info">Occurances</div>
+                    </div>
+                    <select class="form-control" formControlName="numberOfOccurance">
+                      <option selected="{{ selectedFrequency }}" *ngFor="let obj of occurancesList" [value]="obj">
+                        {{ obj }}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                  Ok
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-auto">
+        <button type="submit" (click)="onSubmit()" class="btn btn-primary mb-2" [disabled]="!addEventForm.valid">
+          Submit
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
